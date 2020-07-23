@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 import PlaceList from "./src/components/placeList/PlaceList";
 import PlaceInput from "./src/components/placeInput/PlaceInput";
-import placeImage from "./src/assets/beautiful-place.jpg";
+// import placeImage from "./src/assets/beautiful-place.jpg";
 
 export default class App extends React.Component {
   state = {
@@ -19,9 +19,12 @@ export default class App extends React.Component {
     this.setState((prevState) => {
       return {
         places: prevState.places.concat({
-          key: prevState.places.length,
+          key: prevState.places.length.toString(),
           name: prevState.placeName,
-          image: placeImage,
+          image: {
+            uri:
+              "https://cdn.muenchen-p.de/image/fetch/c_scale,w_1180/c_crop,g_center,h_442,w_1180/https://www.muenchen.de/media/shutterstock-2017/sehenswuerdigkeiten-2/rathaus-sonne-hp.jpg",
+          },
         }),
       };
     });
