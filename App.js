@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 import PlaceList from "./src/components/placeList/PlaceList";
 import PlaceInput from "./src/components/placeInput/PlaceInput";
+import placeImage from "./src/assets/beautiful-place.jpg";
 
 export default class App extends React.Component {
   state = {
@@ -19,7 +20,8 @@ export default class App extends React.Component {
       return {
         places: prevState.places.concat({
           key: prevState.places.length,
-          value: prevState.placeName,
+          name: prevState.placeName,
+          image: placeImage,
         }),
       };
     });
