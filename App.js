@@ -4,11 +4,13 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import PlaceList from "./src/components/placeList/PlaceList";
 import PlaceInput from "./src/components/placeInput/PlaceInput";
 // import placeImage from "./src/assets/beautiful-place.jpg";
+import PlaceDetail from "./src/components/placeDetail/PlaceDetail";
 
 export default class App extends React.Component {
   state = {
     placeName: "",
     places: [],
+    selectedPlace: null,
   };
 
   placeNameChangeHandler = (val) => {
@@ -30,11 +32,26 @@ export default class App extends React.Component {
     });
   };
 
-  placeDeleteHandler = (key) => {
+  placeDeleteHandler = () => {
     this.setState((prevState) => {
       return {
         places: prevState.places.filter((place) => {
-          return place.key !== key;
+          return place.key !== prevState.selectedPlace.key;
+        }),
+        selectedPlace: null,
+      };
+    });
+  };
+  onModalCloseHandler = () => {
+    this.setState({
+      selectedPlace: null,
+    });
+  };
+  placeSelecteHandler = (key) => {
+    this.setState((prevState) => {
+      return {
+        selectedPlace: prevState.places.find((place) => {
+          return place.key === key;
         }),
       };
     });
@@ -43,6 +60,11 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <PlaceDetail
+          onItemDeleted={this.placeDeleteHandler}
+          onItemClosed={this.onModalCloseHandler}
+          selectedPlace={this.state.selectedPlace}
+        />
         <View style={styles.inputContainer}>
           <PlaceInput
             placeNameChangeHandler={this.placeNameChangeHandler}
@@ -55,7 +77,7 @@ export default class App extends React.Component {
           />
         </View>
         <PlaceList
-          onItemDeleted={this.placeDeleteHandler}
+          onItemSelected={this.placeSelecteHandler}
           places={this.state.places}
         />
       </View>
