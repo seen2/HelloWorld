@@ -20,6 +20,7 @@ export default class App extends React.Component {
     if (this.state.placeName.trim() === "") return;
     this.setState((prevState) => {
       return {
+        placeName: "",
         places: prevState.places.concat({
           key: prevState.places.length.toString(),
           name: prevState.placeName,
